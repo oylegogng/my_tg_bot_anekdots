@@ -42,7 +42,7 @@ def get_anekdot(url):  # получения анекдотов со страни
 def telegram_bot(token):
     bot = telebot.TeleBot(token)
 
-    types_and_urls = {
+    types_and_urls = { # названия категорий и их ссылки
         "армия": "http://anekdotov.net/army/",
         "дети": "http://anekdotov.net/children/",
         "душевные": "http://anekdotov.net/story/simple/",
@@ -71,7 +71,7 @@ def telegram_bot(token):
     @bot.message_handler(content_types=['text'])
     def show_anekdots(message):
 
-        flag = False
+        flag = False # флаг отправки 
 
         for key in types_and_urls:
             if key.lower() == message.text.lower():
@@ -83,7 +83,7 @@ def telegram_bot(token):
                 for anekdot in anekdots:
                     bot.send_message(message.chat.id, anekdot)
 
-        if flag == False:
+        if flag == False: # если не было найдено совпадений, то отправляем сообщение об ошибке
             bot.send_message(message.chat.id, "Проверье корректность отправленной категории")
     bot.polling()
 
